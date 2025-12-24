@@ -22,7 +22,7 @@ import requests
 # ==========================
 # OCEAN Setup
 # ==========================
-OCEANN_JWT_TOKEN = os.getenv("OCEANN_JWT_TOKEN")
+YOUR_TOKEN = os.getenv("YOUR_TOKEN")
 
 
 from langchain_openai import AzureChatOpenAI
@@ -45,11 +45,11 @@ def get_vessels_by_name(query: str) -> dict:
     """
     Fetch vessel list by vessel name or partial name with error handling.
     """
-    url = f"https://prodapi.theoceann.ai/marine/get-vessels-name/{query}"
+    url = f"https://<your_url>/get-vessels-name/{query}"
 
     headers = {
         "accept": "*/*",
-        "authorization": OCEANN_JWT_TOKEN,
+        "authorization": YOUR_TOKEN,
         "endpoint": "Map Intelligence",
     }
 
@@ -108,11 +108,11 @@ def get_vessel_particulars(mmsi: str, imo: str, ship_id: str, vessel_name: str) 
     """
     
     try:
-        url = f"https://prodapi.theoceann.ai/marine/get-vessel-particulars/{mmsi}/{imo}/{ship_id}/{vessel_name}"
+        url = f"https://<your_url>/get-vessel-particulars/{mmsi}/{imo}/{ship_id}/{vessel_name}"
 
         headers = {
             "accept": "*/*",
-            "authorization": OCEANN_JWT_TOKEN,
+            "authorization": YOUR_TOKEN,
             "endpoint": "Map Intelligence",
         }
 
@@ -175,7 +175,7 @@ def categorize_single_port_call(v: str, shipid: str, msgtype: str) -> dict:
     using SHIP_ID and parameters v & msgtype.
     """
 
-    url = "https://prodapi.theoceann.ai/marine/categorize-single-port-call"
+    url = "https://<your_url>/categorize-single-port-call"
     params = {
         "v": v,
         "shipid": shipid,
@@ -184,7 +184,7 @@ def categorize_single_port_call(v: str, shipid: str, msgtype: str) -> dict:
 
     headers = {
         "accept": "*/*",
-        "authorization": OCEANN_JWT_TOKEN,
+        "authorization": YOUR_TOKEN,
         "endpoint": "Map Intelligence",
     }
 
@@ -240,7 +240,7 @@ def expected_port_arrivals(port_name: str, msg_type: str = "simple") -> dict:
         msg_type (str): Message type. Options: "simple" or "extended".
     """
 
-    url = "https://prodapi.theoceann.ai/marine/expected-port-arrivals"
+    url = "https://<your_url>/expected-port-arrivals"
 
     params = {
         "portName": port_name,
@@ -249,7 +249,7 @@ def expected_port_arrivals(port_name: str, msg_type: str = "simple") -> dict:
 
     headers = {
         "accept": "*/*",
-        "authorization": OCEANN_JWT_TOKEN,
+        "authorization": YOUR_TOKEN,
         "endpoint": "Map Intelligence",
     }
 
@@ -309,11 +309,11 @@ def get_port_distance(
     HRA length, and detailed LineString coordinates.
     """
 
-    url = "https://apiservices.theoceann.com/mail/distance"
+    url = "https://<your_url>/distance"
 
     headers = {
         "Accept": "application/json, text/plain, */*",
-        "Authorization": OCEANN_JWT_TOKEN,
+        "Authorization": YOUR_TOKEN,
         "Content-Type": "application/json",
         "endpoint": "Chartering Dashboard",
     }
@@ -377,14 +377,14 @@ def get_bunker_spotprice_by_port(port_name: str) -> dict:
     """
 
     url = (
-        "https://devapiservices.theoceann.com/api/v1/port-bunker-activity/"
+        "https://<your_url>/port-bunker-activity/"
         f"searchport-full?portName={port_name}"
     )
 
     headers = {
         "accept": "*/*",
         "accept-language": "en-US,en;q=0.9",
-        "authorization": OCEANN_JWT_TOKEN,   # <-- Use your stored token
+        "authorization": YOUR_TOKEN,   # <-- Use your stored token
         "cache-control": "no-cache",
         "endpoint": "Bunker Prices",
         "origin": "https://devmail-thor.theoceann.com",
@@ -454,10 +454,10 @@ def get_weather_speed(payload: dict) -> dict:
       multiple_ports, vessel_name, vessel_type, DWT, IMO, MMSI, date
     """
 
-    url = "https://devapiservices.theoceann.com/marine/get-weather-speed"
+    url = "https://<your_url>/get-weather-speed"
 
     headers = {
-        "Authorization": OCEANN_JWT_TOKEN,
+        "Authorization": YOUR_TOKEN,
         "Accept": "application/json, text/plain, */*",
         "Content-Type": "application/json",
         "endpoint": "Chartering Dashboard",
@@ -512,10 +512,10 @@ def best_match_cargo(cargo_size: int, cargo_type: str, load_port: str, change_ta
     Calls the Best-Match-Cargo API to retrieve the best matched vessels for a cargo.
     """
 
-    url = "https://devapiservices.theoceann.com/mail/best-match-cargo"
+    url = "https://<your_url>/best-match-cargo"
 
     headers = {
-        "Authorization": OCEANN_JWT_TOKEN,
+        "Authorization": YOUR_TOKEN,
         "Content-Type": "application/json",
         "Accept": "*/*",
         "endpoint": "Cargo",
@@ -578,10 +578,10 @@ def match_open_vessels(dwt: str, open_port: str) -> dict:
     Calls the Best-Match-Vessel API to retrieve matched vessels.
     """
 
-    url = "https://devapiservices.theoceann.com/mail/best_match_vessel"
+    url = "https://<your_url>/best_match_vessel"
 
     headers = {
-        "Authorization": OCEANN_JWT_TOKEN,
+        "Authorization": YOUR_TOKEN,
         "Content-Type": "application/json",
         "Accept": "application/json",
     }
